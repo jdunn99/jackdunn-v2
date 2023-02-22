@@ -1,0 +1,64 @@
+:root {
+  --max-width: 900px;
+  --background-color: #2e3440;
+  --background-accent-color: #4c566a;
+  --foreground-color: #f5f7f9;
+  --foreground-accent-color: #d8dee9;
+  --accent-color: #88c0d0;
+  --tertiary-color: #8fbcbb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: var(--foreground-color);
+  background-color: var(--background-color);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    sans-serif;
+}
+
+.accent {
+  color: var(--accent-color);
+}
+
+.description {
+  line-height: 1.75rem;
+  color: var(--foreground-accent-color);
+}
+
+.icon-link {
+  color: var(--foreground-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.icon-link:visited {
+  color: var(--foreground-color);
+}
+
+.icon-link:hover {
+  color: var(--accent-color);
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 4rem;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  color: var(--foreground-color);
+  font-weight: bold;
+  font-size: 24px;
+}

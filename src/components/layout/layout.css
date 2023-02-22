@@ -1,0 +1,15 @@
+.layout {
+  margin: 4rem;
+}
+
+.content {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Tablet and Smaller Desktop */
+@media (min-width: 701px) and (max-width: 1120px) {
+  .layout {
+    margin: 2rem;
+  }
+}
