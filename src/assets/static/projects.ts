@@ -1,7 +1,3 @@
-import { component$, useStylesScoped$ } from "@builder.io/qwik";
-import { ExternalLinkIcon, GithubIcon } from "qwik-feather-icons";
-import styles from "./project-card.css?inline";
-
 const keys = ["Slotfocus", "Trials Tracker", "IssueTracker"];
 
 export type ProjectImage = {
@@ -80,55 +76,7 @@ export const projects: Project[] = [
     technologies: [] as string[],
   },
 ];
+
 export const featuredProjects = projects.filter((project) =>
   keys.includes(project.name)
 );
-
-interface ProjectProps {
-  project: Project;
-  reverse?: boolean;
-}
-
-export const ProjectCard = component$(({ project, reverse }: ProjectProps) => {
-  useStylesScoped$(styles);
-
-  const { name, technologies, codeUrl, demoUrl, description } = project;
-
-  const variantStyles = {
-    container: reverse ? "flex-direction: row-reverse; text-align:right;" : "flex-direction: row",
-    justify: reverse
-      ? "justify-content: flex-end"
-      : "justify-content: flex-start",
-
-  };
-
-  return (
-    <div class="container" style={variantStyles.container}>
-      <div class="content">
-        <h3>{name}</h3>
-        <div class="technologies" style={variantStyles.justify}>
-          {technologies.map((technology, index) => (
-            <span key={index} class="accent">
-              {technology}
-            </span>
-          ))}
-        </div>
-
-        <p class="description">{description}</p>
-        <div class="links" style={variantStyles.justify}>
-          {typeof demoUrl !== "undefined" ? (
-            <a href={demoUrl} target="_blank" class="icon-link">
-              <ExternalLinkIcon />
-            </a>
-          ) : null}
-          {typeof codeUrl !== "undefined" ? (
-            <a href={codeUrl} target="_blank" class="icon-link">
-              <GithubIcon />
-            </a>
-          ) : null}
-        </div>
-      </div>
-      <div style="flex: 1;">Image</div>
-    </div>
-  );
-});

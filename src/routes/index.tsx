@@ -1,18 +1,29 @@
 import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
-import { DocumentHead } from "@builder.io/qwik-city";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import styles from "./index.scss?inline";
+import type { Post } from "~/assets/static/posts";
 import {
-  featuredProjects,
-  ProjectCard,
-} from "../components/project-card/project-card";
-import { Layout } from "../components/layout/layout";
-import styles from "./index.css?inline";
-import type { Post } from "~/components/posts/posts";
-import { RecentPost } from "~/components/posts/posts";
-import { GithubIcon, LinkedinIcon, MailIcon } from "qwik-feather-icons";
-import { NavItem } from "~/components/navbar/navbar";
+  ExternalLinkIcon,
+  GithubIcon,
+  LinkedinIcon,
+  MailIcon,
+} from "qwik-feather-icons";
+import type { Project } from "~/assets/static/projects";
+import { featuredProjects } from "~/assets/static/projects";
+import { Flex } from "~/components/flex";
+import { Link } from "~/components/link";
 
 interface SectionProps {
   heading: string;
+}
+
+interface ProjectProps {
+  project: Project;
+  reverse?: boolean;
+}
+
+interface PostProps {
+  post: Post;
 }
 
 const tempPost: Post = {
@@ -21,6 +32,69 @@ const tempPost: Post = {
   slug: "1",
   published: "Jan 20, 2022",
 };
+
+const ProjectCard = component$(({ project, reverse }: ProjectProps) => {
+  useStylesScoped$(styles);
+  const { name, technologies, codeUrl, demoUrl, description } = project;
+
+  return (
+    <Flex
+      align="center"
+      justify="space-between"
+      className="container"
+      direction={`${reverse ? "row-reverse" : "row"}`}
+      style={`${reverse ? "text-align:right" : "text-align: left"}`}
+    >
+      <Flex
+        direction="column"
+        flex="1"
+        gap="1rem"
+        justify={`${reverse ? "flex-end" : "flex-start"}`}
+      >
+        <h3>{name}</h3>
+        <Flex align="center" gap="1rem">
+          {technologies.map((technology, index) => (
+            <span key={index} class="accent">
+              {technology}
+            </span>
+          ))}
+        </Flex>
+
+        <p class="description">{description}</p>
+        <Flex align="center" gap="1rem">
+          {typeof demoUrl !== "undefined" ? (
+            <Link href={demoUrl}>
+              <ExternalLinkIcon />
+            </Link>
+          ) : null}
+          {typeof codeUrl !== "undefined" ? (
+            <Link href={codeUrl}>
+              <GithubIcon />
+            </Link>
+          ) : null}
+        </Flex>
+      </Flex>
+      <div style="flex: 1;">Image</div>
+    </Flex>
+  );
+});
+
+const RecentPost = component$(({ post }: PostProps) => {
+  useStylesScoped$(styles);
+  const { title, description, published } = post;
+
+  return (
+    <div class="post-container">
+      <Flex align="center">
+        <h3 style="flex:1;">{title}</h3>
+        <p>{published}</p>
+      </Flex>
+      <p class="description" style="font-size: 14px">
+        {description}
+      </p>
+    </div>
+  );
+});
 
 const Section = component$(({ heading }: SectionProps) => {
   useStylesScoped$(styles);
@@ -36,7 +110,7 @@ export default component$(() => {
   useStylesScoped$(styles);
 
   return (
-    <Layout>
+    <>
       <section class="hero">
         <h1 class="accent">Jack Dunn</h1>
         <p class="description">
@@ -50,30 +124,20 @@ export default component$(() => {
           web application.
         </p>
         <p class="subtext">Open to full-time positions.</p>
-        <div class="contact">
-          <p class="accent" style="font-size: 14px; font-weight: bold;">
-            Contact Me
-          </p>
-          <ul>
-            <li>
+        <Flex direction="column" align="center">
+          <p class="accent contact">Contact Me</p>
+          <Flex align="center" justify="center" gap="1rem">
+            <Link href="#">
               <MailIcon class="icon-link" />
-            </li>
-            <li>
-              <a
-                href="https://github.com/jdunn99"
-                class="icon-link"
-                target="_blank"
-              >
-                <GithubIcon />
-              </a>
-            </li>
-            <li>
-              <a href="https://linkedin.com/" target="_blank" class="icon-link">
-                <LinkedinIcon />
-              </a>
-            </li>
-          </ul>
-        </div>
+            </Link>
+            <Link href="https://github.com/jdunn99">
+              <GithubIcon />
+            </Link>
+            <Link href="https://github.com/jdunn99">
+              <LinkedinIcon />
+            </Link>
+          </Flex>
+        </Flex>
       </section>
       <Section heading="Projects">
         {featuredProjects.map((project, index) => (
@@ -87,31 +151,7 @@ export default component$(() => {
       <Section heading="Recent Posts">
         <RecentPost post={tempPost} />
       </Section>
-      <footer>
-        <div class="flex">
-          <a
-            href="https://github.com/jdunn99"
-            class="icon-link"
-            target="_blank"
-          >
-            <GithubIcon />
-          </a>
-          <a
-            href="https://github.com/jdunn99"
-            class="icon-link"
-            target="_blank"
-          >
-            <LinkedinIcon />
-          </a>
-        </div>
-        <div class="flex">
-          <NavItem href="contact">Contact</NavItem>
-          <NavItem href="projects">Projects</NavItem>
-          <NavItem href="blog">Blog</NavItem>
-          <NavItem href="resume">Resume</NavItem>{" "}
-        </div>
-      </footer>
-    </Layout>
+    </>
   );
 });
 

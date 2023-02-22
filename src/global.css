@@ -24,9 +24,33 @@ body {
   color: var(--accent-color);
 }
 
+.accent a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.accent a:hover {
+  text-decoration: underline;
+}
+
+.accent a:visited {
+  color: var(--accent-color);
+}
+
 .description {
   line-height: 1.75rem;
   color: var(--foreground-accent-color);
+}
+
+.subtext {
+  margin-top: 1.25rem;
+}
+
+.logo {
+  color: var(--foreground-color);
+  font-weight: bold;
+  font-size: 24px;
 }
 
 .icon-link {
@@ -34,31 +58,9 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
-
 .icon-link:visited {
   color: var(--foreground-color);
 }
-
 .icon-link:hover {
   color: var(--accent-color);
-}
-
-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding-top: 4rem;
-}
-
-.flex {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.logo {
-  color: var(--foreground-color);
-  font-weight: bold;
-  font-size: 24px;
 }
