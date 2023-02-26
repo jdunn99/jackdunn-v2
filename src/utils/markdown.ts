@@ -8,6 +8,11 @@ export type MarkdownMetadata = {
   description?: string;
 };
 
+/**
+ * Parses metadata in YAML format from a list of Markdown files
+ * @param paths - List of file paths to read Markdown files from
+ * @returns A Promise that resolves to an array of objects representing the parsed metadata for each file
+ */
 export const parseMarkdownMetadata = async (paths: string[]) => {
   if (!paths) return;
   return await Promise.all(

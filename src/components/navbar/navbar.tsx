@@ -12,9 +12,9 @@ export const NavItem = component$(({ href }: NavItemProps) => {
 
   return (
     <li>
-      <Link href={href} class="icon-link">
+      <a href={href} class="icon-link">
         <Slot />
-      </Link>
+      </a>
     </li>
   );
 });
@@ -25,15 +25,15 @@ export const Navbar = component$(() => {
   return (
     <header>
       <nav>
-        <Link href="/" class="logo">
+          <a href="/" class="logo" f>
           JD
-        </Link>
+        </a>
 
         <Flex align="center" gap="1rem">
-          <NavItem href="contact">Contact</NavItem>
-          <NavItem href="projects">Projects</NavItem>
-          <NavItem href="blog">Blog</NavItem>
-          <NavItem href="resume">Resume</NavItem>
+          <NavItem href="/contact">Contact</NavItem>
+          <NavItem href="/projects">Projects</NavItem>
+          <NavItem href="/blog">Blog</NavItem>
+          <NavItem href="/resume">Resume</NavItem>
         </Flex>
       </nav>
     </header>

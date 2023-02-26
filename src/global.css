@@ -1,11 +1,15 @@
 :root {
-  --max-width: 900px;
-  --background-color: #2e3440;
-  --background-accent-color: #4c566a;
-  --foreground-color: #f5f7f9;
-  --foreground-accent-color: #d8dee9;
-  --accent-color: #88c0d0;
-  --tertiary-color: #8fbcbb;
+  --max-width: 130rem;
+  --background-color: #191724;
+  --background-accent-color: #434343;
+  --foreground-color: #E2E1E7;
+  --foreground-accent-color: #a9a9a9;
+  --accent-color: #00a0e4;
+  --tertiary-color: #18baff;
+}
+
+html {
+  font-size: 62.5%;
 }
 
 * {
@@ -14,6 +18,7 @@
 }
 
 body {
+  overflow-x: hidden;
   color: var(--foreground-color);
   background-color: var(--background-color);
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -21,7 +26,7 @@ body {
 }
 
 .accent {
-  color: var(--accent-color);
+  color: var(--accent-color) !important;
 }
 
 .accent a {

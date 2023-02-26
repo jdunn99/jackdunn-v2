@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "@builder.io/qwik"; 
+import type { HTMLAttributes } from "@builder.io/qwik";
 import { component$, Slot } from "@builder.io/qwik";
 
 interface FlexProps extends HTMLAttributes<HTMLDivElement> {
@@ -32,24 +32,21 @@ export const Flex = component$(
     justify,
     wrap,
     direction,
+    style,
     ...rest
   }: FlexProps) => {
-
-
 
     return (
       <div
         {...rest}
-        style={{
-          display: "flex",
-          listStyleType: "none",
-          wrap: wrap || "nowrap",
-          justifyContent: justify || "flex-start",
-          flexDirection: direction || "row",
-          flex: flex || "0 1 auto",
-          alignItems: align || "stretch",
-          gap: gap || "0",
-        }}
+        style={`display: flex; list-style-type: none; wrap: ${
+          wrap || "nowrap"
+        }; justify-content: ${justify || "flex-start"}; flex-direction: ${
+          direction || "row"
+        }; flex: ${flex || "0"}; align-items: ${align || "stretch"}; gap: ${
+          gap || "0"
+        }; ${style}
+         `}
       >
         <Slot />
       </div>

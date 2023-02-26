@@ -17,10 +17,10 @@ export const Footer = component$(() => {
           </Link>
         </Flex>
         <Flex align="center" direction="row" gap="1rem">
-          <NavItem href="contact">Contact</NavItem>
-          <NavItem href="projects">Projects</NavItem>
-          <NavItem href="blog">Blog</NavItem>
-          <NavItem href="resume">Resume</NavItem>
+          <NavItem href="/contact">Contact</NavItem>
+          <NavItem href="/projects">Projects</NavItem>
+          <NavItem href="/blog">Blog</NavItem>
+          <NavItem href="/resume">Resume</NavItem>
         </Flex>
       </Flex>
     </footer>

@@ -12,6 +12,13 @@ import type { Project } from "~/assets/static/projects";
 import { featuredProjects } from "~/assets/static/projects";
 import { Flex } from "~/components/flex";
 import { Link } from "~/components/link";
+import {
+  Heading,
+  HeadingLarge,
+  HeadingSmall,
+  TextBase,
+} from "~/components/fonts/fonts";
+import { Button } from "~/components/button";
 
 interface SectionProps {
   heading: string;
@@ -35,47 +42,48 @@ const tempPost: Post = {
 
 const ProjectCard = component$(({ project, reverse }: ProjectProps) => {
   useStylesScoped$(styles);
-  const { name, technologies, codeUrl, demoUrl, description } = project;
+  const { name, technologies, description, image } = project;
+
+  const position = reverse ? "right: 100%" : "left: 0";
 
   return (
-    <Flex
-      align="center"
-      justify="space-between"
-      className="container"
-      direction={`${reverse ? "row-reverse" : "row"}`}
-      style={`${reverse ? "text-align:right" : "text-align: left"}`}
-    >
+    <div class="container">
       <Flex
-        direction="column"
-        flex="1"
-        gap="1rem"
-        justify={`${reverse ? "flex-end" : "flex-start"}`}
+        align="center"
+        justify="space-between"
+        gap="4rem"
+        direction={`${reverse ? "row-reverse" : "row"}`}
+        style={`${reverse ? "text-align:right;" : "text-align: left;"}`}
       >
-        <h3>{name}</h3>
-        <Flex align="center" gap="1rem">
-          {technologies.map((technology, index) => (
-            <span key={index} class="accent">
-              {technology}
-            </span>
-          ))}
+        <Flex
+          direction="column"
+          gap="3rem"
+          flex="0.5"
+          align={`${reverse ? "flex-end" : "flex-start"}`}
+        >
+          <div>
+            <HeadingSmall>Featured Project</HeadingSmall>
+            <Heading>{name}</Heading>
+          </div>
+
+          <TextBase>{description}</TextBase>
+          <Flex align="center" gap="1rem">
+            <Slot />
+          </Flex>
+          <Flex align="center" gap="1rem">
+            {technologies.map((technology, index) => (
+              <TextBase style="color:var(--tertiary-color)">
+                <span key={index}>{technology}</span>
+              </TextBase>
+            ))}
+          </Flex>
         </Flex>
 
-        <p class="description">{description}</p>
-        <Flex align="center" gap="1rem">
-          {typeof demoUrl !== "undefined" ? (
-            <Link href={demoUrl}>
-              <ExternalLinkIcon />
-            </Link>
-          ) : null}
-          {typeof codeUrl !== "undefined" ? (
-            <Link href={codeUrl}>
-              <GithubIcon />
-            </Link>
-          ) : null}
-        </Flex>
+        <div style="flex: 1;">
+          <img src="./public/images/test.svg" />
+        </div>
       </Flex>
-      <div style="flex: 1;">Image</div>
-    </Flex>
+    </div>
   );
 });
 
@@ -100,8 +108,7 @@ const Section = component$(({ heading }: SectionProps) => {
   useStylesScoped$(styles);
   return (
     <section>
-      <h2 class="accent">{heading}</h2>
-      <Slot />
+      <Heading>{heading}</Heading> <Slot />
     </section>
   );
 });
@@ -110,27 +117,36 @@ export default component$(() => {
   useStylesScoped$(styles);
 
   return (
-    <>
+    <Flex direction="column" gap="14rem">
       <section class="hero">
-        <h1 class="accent">Jack Dunn</h1>
-        <p class="description">
-          Full stack web developer focusing on creating applications with React
-          and Node. <br /> Currently working part-time building the{" "}
-          <span class="accent">
-            <a href="https://slotfocus.com" target="_blank">
-              Slotfocus
-            </a>
-          </span>{" "}
-          web application.
-        </p>
-        <p class="subtext">Open to full-time positions.</p>
-        <Flex direction="column" align="center">
-          <p class="accent contact">Contact Me</p>
-          <Flex align="center" justify="center" gap="1rem">
+        <Flex
+          direction="column"
+          gap="3rem"
+          justify="center"
+          align="center"
+          style="text-align: center; "
+        >
+          <HeadingLarge>Full Stack Web Developer</HeadingLarge>
+          <TextBase style="max-width: 1000px;">
+            Focusing on creating applications with React and Node. Currently
+            working part-time building the{" "}
+            <span class="accent">
+              <a href="https://slotfocus.com" target="_blank">
+                Slotfocus
+              </a>
+            </span>{" "}
+            web application.
+          </TextBase>
+        </Flex>
+      </section>
+      <section class="contact">
+        <Flex direction="column" align="center" gap="1rem">
+          <HeadingSmall>Get in touch</HeadingSmall>
+          <Flex align="center" justify="center" gap="2.5rem">
             <Link href="#">
               <MailIcon class="icon-link" />
             </Link>
-            <Link href="https://github.com/jdunn99">
+            <Link href="http://github.com/jdunn99">
               <GithubIcon />
             </Link>
             <Link href="https://github.com/jdunn99">
@@ -140,18 +156,33 @@ export default component$(() => {
         </Flex>
       </section>
       <Section heading="Projects">
-        {featuredProjects.map((project, index) => (
-          <ProjectCard
-            project={project}
-            reverse={index % 2 !== 0}
-            key={index}
-          />
-        ))}
+        <Flex direction="column" gap="16.6rem">
+          {featuredProjects.map((project, index) => (
+            <ProjectCard
+              project={project}
+              reverse={index % 2 !== 0}
+              key={index}
+            >
+              {typeof project.demoUrl !== "undefined" ? (
+                <Button href={project.demoUrl}>Demo</Button>
+              ) : null}
+              {typeof project.codeUrl !== "undefined" ? (
+                <Button href={project.codeUrl} outlined>
+                  Code
+                </Button>
+              ) : null}
+              {typeof project.codeUrl === "undefined" &&
+              typeof project.demoUrl === "undefined" ? (
+                <Button href="#">Learn more about {project.name}</Button>
+              ) : null}
+            </ProjectCard>
+          ))}
+        </Flex>
       </Section>
       <Section heading="Recent Posts">
         <RecentPost post={tempPost} />
       </Section>
-    </>
+    </Flex>
   );
 });
 
