@@ -28,12 +28,33 @@ interface PostProps {
   post: Post;
 }
 
+interface LinkProps {
+  href: string;
+}
+
+interface SkillProps {
+  image?: string;
+  title: string;
+  subtitle: string;
+}
+
 const tempPost: Post = {
   title: "Test",
   description: "This is a test post",
   slug: "1",
   published: "Jan 20, 2022",
 };
+
+const MainLink = component$(({ href }: LinkProps) => {
+  useStylesScoped$(styles);
+  return (
+    <div class="centered">
+      <a class="styled-link" href={href}>
+        <Slot />
+      </a>
+    </div>
+  );
+});
 
 const ProjectCard = component$(({ project, reverse }: ProjectProps) => {
   useStyles$(styles);
@@ -68,27 +89,36 @@ const ProjectCard = component$(({ project, reverse }: ProjectProps) => {
 });
 
 const RecentPost = component$(({ post }: PostProps) => {
-  useStylesScoped$(styles);
-  const { title, description, published } = post;
+  useStyles$(styles);
+  const { title, published } = post;
 
   return (
     <div class="post-container">
-      <Flex align="center">
-        <h3 style="flex:1;">{title}</h3>
-        <p>{published}</p>
-      </Flex>
-      <p class="description" style="font-size: 14px">
-        {description}
-      </p>
+      <Text class="title">{title}</Text>
+      <Text variant="small">{published}</Text>
+    </div>
+  );
+});
+
+const Skill = component$(({ title, subtitle }: SkillProps) => {
+  useStylesScoped$(styles);
+  return (
+    <div class="item">
+      <div class="box" />
+      <div>
+        <Text class="heading">{title}</Text>
+        <Text variant="small">{subtitle}</Text>
+      </div>
     </div>
   );
 });
 
 const Section = component$(({ heading }: SectionProps) => {
-  useStylesScoped$(styles);
+  useStyles$(styles);
   return (
     <section>
-      <Heading>{heading}</Heading> <Slot />
+      <Heading class="test">{heading}</Heading>
+      <Slot />
     </section>
   );
 });
@@ -129,7 +159,7 @@ export default component$(() => {
             <Link href="#">
               <MailIcon class="icon-link" />
             </Link>
-            <Link href="http://github.com/jdunn99">
+            <Link href="https://github.com/jdunn99">
               <GithubIcon />
             </Link>
             <Link href="https://github.com/jdunn99">
@@ -161,9 +191,33 @@ export default component$(() => {
             </ProjectCard>
           ))}
         </Flex>
+        <MainLink href="/projects">View all my projects</MainLink>
       </Section>
       <Section heading="Recent Posts">
         <RecentPost post={tempPost} />
+        <MainLink href="/projects">View all my posts</MainLink>
+      </Section>
+      <Section heading="">
+        <div class="skills-container">
+          <Skill title="Front end" subtitle="HTML, CSS, React, NextJS" />
+          <Skill title="Back end" subtitle="Node, Express, Databases" />
+          <Skill
+            title="Everything else"
+            subtitle="REST, GraphQL, Docker, Git, Testing"
+          />
+        </div>
+        <MainLink href="/resume">View more skills on my resume</MainLink>
+      </Section>
+      <Section heading="">
+        <div class="contact-container">
+          <Heading>Contact Me</Heading>
+          <Text>
+            I'm currently looking for full time opportunities and my
+            inbox is always open. Whether you have a question or just want to
+            say hi, I’ll try my best to get back to you!
+          </Text>
+          <Button href="#">Send me an email</Button>
+        </div>
       </Section>
     </Flex>
   );

@@ -1,13 +1,19 @@
 :root {
   --max-width: 130rem;
-  --background-color: #191724;
-  --background-accent-color: #434343;
-  --foreground-color: #fff;
-  --foreground-accent-color: #a9a9a9;
+  --background-color: #fff;
+  --background-accent-color: #a9a9a9;
+  --foreground-color: #191724;
+  --foreground-accent-color: #434343;
   --accent-color: #00a0e4;
   --tertiary-color: #18baff;
 
   --accent-rgb: 0, 160, 228;
+
+  --background-gradient: radial-gradient(
+    ellipse at top,
+    rgba(var(--accent-rgb), 0.1) 10%,
+    var(--background-color) 100%
+  );
 }
 
 html {
@@ -20,13 +26,8 @@ html {
 }
 
 body {
-  background: radial-gradient(
-    ellipse at top,
-    rgba(var(--accent-rgb), 0.1) 10%,
-    var(--background-color) 100%
-  );
-
-
+  background: var(--background-gradient);
+  scroll-behavior: smooth;
   overflow-x: hidden;
   color: var(--foreground-color);
   background-color: var(--background-color);
@@ -77,4 +78,24 @@ body {
 }
 .icon-link:hover {
   color: var(--accent-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --max-width: 130rem;
+    --background-color: #191724;
+    --background-accent-color: #434343;
+    --foreground-color: #fff;
+    --foreground-accent-color: #a9a9a9;
+    --accent-color: #00a0e4;
+    --tertiary-color: #18baff;
+
+    --accent-rgb: 0, 160, 228;
+
+    --background-gradient: radial-gradient(
+      ellipse at top,
+      rgba(var(--accent-rgb), 0.1) 10%,
+      var(--background-color) 100%
+    );
+  }
 }

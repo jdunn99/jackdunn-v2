@@ -1,3 +1,9 @@
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 // ProjectCard component
 .reversed {
   flex-direction: row-reverse;
@@ -32,16 +38,83 @@
   }
 }
 
+// Main link
+.styled-link {
+  margin-top: 7rem;
+  color: var(--accent-color);
+  font-size: 2rem;
+
+  &:hover {
+    color: var(--tertiary-color) !important;
+  }
+
+  &:visited {
+    color: var(--accent-color);
+  }
+}
+
 // Hero section
 .hero {
-  margin-top: 12rem;
+  margin-top: 18rem;
 }
 
 // Recent Posts container
-.posts-container {
-  margin-top: 1rem;
-  width: 100%;
+.post-container {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
   cursor: pointer;
+
+  .title {
+    color: var(--foreground-color);
+    flex: 1;
+  }
+
+  &:hover {
+    text-decoration: underline;
+    color: var(--accent-color);
+  }
+}
+
+.skills-container {
+  display: flex;
+  align-items: center;
+  gap: 6rem;
+
+  .item {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    gap: 2rem;
+
+    .box {
+      height: 7.4rem;
+      width: 7.4rem;
+      background: var(--background-accent-color);
+      border-radius: 1rem;
+    }
+
+    .heading {
+      color: var(--foreground-color);
+      font-weight: bold;
+      flex: 1;
+    }
+  }
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10rem;
+
+  p {
+    max-width: 800px;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -56,7 +129,6 @@
       justify-content: center;
     }
   }
-
 
   .reversed {
     flex-direction: column;
