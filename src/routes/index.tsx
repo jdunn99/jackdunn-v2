@@ -1,6 +1,8 @@
 import {
   component$,
   Slot,
+  useBrowserVisibleTask$,
+  useSignal,
   useStyles$,
   useStylesScoped$,
 } from "@builder.io/qwik";
@@ -8,7 +10,7 @@ import type { DocumentHead } from "@builder.io/qwik-city";
 import styles from "./index.scss?inline";
 import type { Post } from "~/assets/static/posts";
 import { GithubIcon, LinkedinIcon, MailIcon } from "qwik-feather-icons";
-import type { Project } from "~/assets/static/projects";
+import type { Project, ProjectImage } from "~/assets/static/projects";
 import { featuredProjects } from "~/assets/static/projects";
 import { Flex } from "~/components/flex";
 import { Link } from "~/components/link";
@@ -38,6 +40,10 @@ interface SkillProps {
   subtitle: string;
 }
 
+interface ImageProps {
+  image: ProjectImage;
+}
+
 const tempPost: Post = {
   title: "Test",
   description: "This is a test post",
@@ -58,11 +64,17 @@ const MainLink = component$(({ href }: LinkProps) => {
 
 const ProjectCard = component$(({ project, reverse }: ProjectProps) => {
   useStyles$(styles);
+
+  const visible = useSignal("hidden");
   const { name, technologies, description, image } = project;
 
+  useBrowserVisibleTask$(() => {
+    visible.value = "shown";
+  });
+
   return (
-    <div class={`container ${reverse && "reversed"}`}>
-      <div class={`project-content ${reverse && "reversed"}`}>
+    <div class={`${visible.value} container ${reverse && "reversed"}`}>
+      <div class={` project-content ${reverse && "reversed"}`}>
         <div>
           <Heading variant="small">Featured Project</Heading>
           <Heading>{name}</Heading>
@@ -80,31 +92,68 @@ const ProjectCard = component$(({ project, reverse }: ProjectProps) => {
           ))}
         </div>
       </div>
+      <Images image={image} />
+    </div>
+  );
+});
 
-      <div class="project-image">
-        <img src="./public/images/test.svg" />
-      </div>
+const Images = component$(({ image }: ImageProps) => {
+  useStyles$(styles);
+  const visible = useSignal("hidden");
+
+  useBrowserVisibleTask$(() => {
+    visible.value = "img-shown";
+  });
+
+  return (
+    <div
+      class={`images ${visible.value}`}
+      style={`grid-template-columns: ${
+        image.large.children ? "1fr 1fr" : "1fr"
+      }`}
+    >
+      <img src={image.large.main} />
+      {image.large.children ? (
+        <div>
+          {image.large.children.map((image: string) => (
+            <img src={image} key={image} />
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 });
 
 const RecentPost = component$(({ post }: PostProps) => {
+  const { title, published, description } = post;
+
   useStyles$(styles);
-  const { title, published } = post;
+  const visible = useSignal("hidden");
+
+  useBrowserVisibleTask$(() => {
+    visible.value = "img-shown";
+  });
 
   return (
-    <div class="post-container">
-      <Text class="title">{title}</Text>
-      <Text variant="small">{published}</Text>
+    <div class={`${visible.value} post`}>
+      <Heading class="post-title">{title}</Heading>
+      <Text>{published}</Text>
+      <Text>{description} </Text>
     </div>
   );
 });
 
-const Skill = component$(({ title, subtitle }: SkillProps) => {
-  useStylesScoped$(styles);
+const Skill = component$(({ title, subtitle, image }: SkillProps) => {
+  useStyles$(styles);
+  const visible = useSignal("hidden");
+
+  useBrowserVisibleTask$(() => {
+    visible.value = "img-shown";
+  });
+
   return (
-    <div class="item">
-      <div class="box" />
+    <div class={`${visible.value} item`}>
+      <img src={image} />
       <div>
         <Text class="heading">{title}</Text>
         <Text variant="small">{subtitle}</Text>
@@ -115,8 +164,14 @@ const Skill = component$(({ title, subtitle }: SkillProps) => {
 
 const Section = component$(({ heading }: SectionProps) => {
   useStyles$(styles);
+  const visible = useSignal("hidden");
+
+  useBrowserVisibleTask$(() => {
+    visible.value = "shown";
+  });
+
   return (
-    <section>
+    <section class={visible}>
       <Heading class="test">{heading}</Heading>
       <Slot />
     </section>
@@ -137,7 +192,7 @@ export default component$(() => {
           style="text-align: center; "
         >
           <Heading variant="large">
-            Experienced Full Stack Developer Seeking Full-Time Positions
+            Full Stack Developer Seeking Full-Time Positions
           </Heading>
           <Text style="max-width: 1000px;">
             Specializing in React and Node.js, I build innovative web
@@ -168,8 +223,8 @@ export default component$(() => {
           </Flex>
         </Flex>
       </section>
-      <Section heading="Projects">
-        <Flex direction="column" gap="16.6rem">
+      <section>
+        <div class="project-container">
           {featuredProjects.map((project, index) => (
             <ProjectCard
               project={project}
@@ -190,20 +245,39 @@ export default component$(() => {
               ) : null}
             </ProjectCard>
           ))}
-        </Flex>
-        <MainLink href="/projects">View all my projects</MainLink>
-      </Section>
-      <Section heading="Recent Posts">
-        <RecentPost post={tempPost} />
-        <MainLink href="/projects">View all my posts</MainLink>
+        </div>
+        <MainLink href="/projects">View all projects</MainLink>
+      </section>
+      <Section heading="">
+        <div class="posts-container">
+          <div class="posts">
+            <Heading>Recent Posts</Heading>
+            <RecentPost post={tempPost} />
+            <div class="post-grid">
+              <RecentPost post={tempPost} />
+              <RecentPost post={tempPost} />
+              <RecentPost post={tempPost} />
+            </div>
+          </div>
+        </div>
+        <MainLink href="/projects">View all posts</MainLink>
       </Section>
       <Section heading="">
         <div class="skills-container">
-          <Skill title="Front end" subtitle="HTML, CSS, React, NextJS" />
-          <Skill title="Back end" subtitle="Node, Express, Databases" />
+          <Skill
+            title="Front end"
+            subtitle="HTML, CSS, React, NextJS"
+            image="/images/react.svg"
+          />
+          <Skill
+            title="Back end"
+            subtitle="Node, Express, Databases"
+            image="/images/node.svg"
+          />
           <Skill
             title="Everything else"
             subtitle="REST, GraphQL, Docker, Git, Testing"
+            image="/images/docker.svg"
           />
         </div>
         <MainLink href="/resume">View more skills on my resume</MainLink>
@@ -212,9 +286,8 @@ export default component$(() => {
         <div class="contact-container">
           <Heading>Contact Me</Heading>
           <Text>
-            I'm currently looking for full time opportunities and my
-            inbox is always open. Whether you have a question or just want to
-            say hi, I’ll try my best to get back to you!
+            I'm currently looking for full time opportunities and my inbox is
+            always open. Sending an email is the best way to get in touch.
           </Text>
           <Button href="#">Send me an email</Button>
         </div>

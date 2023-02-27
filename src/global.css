@@ -1,7 +1,7 @@
 :root {
   --max-width: 130rem;
   --background-color: #fff;
-  --background-accent-color: #a9a9a9;
+  --background-accent-color: #F5F7F9;
   --foreground-color: #191724;
   --foreground-accent-color: #434343;
   --accent-color: #00a0e4;
@@ -80,16 +80,53 @@ body {
   color: var(--accent-color);
 }
 
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  box-shadow: 0px 0px 15px 0px rgba(var(--accent-rgb), 0.2);
+  border: 1px solid rgba(var(--accent-rgb), 0.4);
+  border-radius: 1rem;
+  background: var(--background-accent-color);
+  flex: 1;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(20%);
+}
+
+.shown {
+  opacity: 1;
+  transition: all 0.75s;
+  transform: translateY(0);
+}
+
+.img-shown {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 1s;
+}
+
+.reversed {
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  text-align: right;
+  justify-content: flex-end;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --max-width: 130rem;
     --background-color: #191724;
-    --background-accent-color: #434343;
+    --background-accent-color: #202031;
     --foreground-color: #fff;
     --foreground-accent-color: #a9a9a9;
     --accent-color: #00a0e4;
     --tertiary-color: #18baff;
-
     --accent-rgb: 0, 160, 228;
 
     --background-gradient: radial-gradient(
