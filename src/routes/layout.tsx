@@ -5,8 +5,9 @@ import { Navbar } from "../components//navbar/navbar";
 export default component$(() => {
   useStylesScoped$(`
     .layout {
+      position: relative;
       margin: 4rem;
-    }
+           }
 
     .content {
       max-width: var(--max-width);
@@ -15,14 +16,17 @@ export default component$(() => {
   `);
 
   return (
-    <div class="layout">
-      <div class="content">
-        <Navbar />
-        <main>
-          <Slot />
-        </main>
-        <Footer />
+    <>
+      <div class="glow" />
+      <div class="layout">
+        <div class="content">
+          <Navbar />
+          <main>
+            <Slot />
+          </main>
+          <Footer />
+        </div>
       </div>
-    </div>
+    </>
   );
 });

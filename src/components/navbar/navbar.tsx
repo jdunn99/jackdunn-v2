@@ -1,7 +1,7 @@
 import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
 import { Flex } from "../flex";
-import styles from "./navbar.css?inline";
+import { Text } from "../fonts/fonts";
+import styles from "./navbar.scss?inline";
 
 interface NavItemProps {
   href: string;
@@ -12,9 +12,11 @@ export const NavItem = component$(({ href }: NavItemProps) => {
 
   return (
     <li>
-      <a href={href} class="icon-link">
-        <Slot />
-      </a>
+      <Text variant="small">
+        <a href={href} class="icon-link">
+          <Slot />
+        </a>
+      </Text>
     </li>
   );
 });
@@ -25,8 +27,8 @@ export const Navbar = component$(() => {
   return (
     <header>
       <nav>
-          <a href="/" class="logo" f>
-          JD
+        <a href="/" class="logo">
+          Jack Dunn
         </a>
 
         <Flex align="center" gap="1rem">

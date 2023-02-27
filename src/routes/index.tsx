@@ -1,23 +1,18 @@
-import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
+import {
+  component$,
+  Slot,
+  useStyles$,
+  useStylesScoped$,
+} from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import styles from "./index.scss?inline";
 import type { Post } from "~/assets/static/posts";
-import {
-  ExternalLinkIcon,
-  GithubIcon,
-  LinkedinIcon,
-  MailIcon,
-} from "qwik-feather-icons";
+import { GithubIcon, LinkedinIcon, MailIcon } from "qwik-feather-icons";
 import type { Project } from "~/assets/static/projects";
 import { featuredProjects } from "~/assets/static/projects";
 import { Flex } from "~/components/flex";
 import { Link } from "~/components/link";
-import {
-  Heading,
-  HeadingLarge,
-  HeadingSmall,
-  TextBase,
-} from "~/components/fonts/fonts";
+import { Heading, Text } from "~/components/fonts/fonts";
 import { Button } from "~/components/button";
 
 interface SectionProps {
@@ -41,48 +36,33 @@ const tempPost: Post = {
 };
 
 const ProjectCard = component$(({ project, reverse }: ProjectProps) => {
-  useStylesScoped$(styles);
+  useStyles$(styles);
   const { name, technologies, description, image } = project;
 
-  const position = reverse ? "right: 100%" : "left: 0";
-
   return (
-    <div class="container">
-      <Flex
-        align="center"
-        justify="space-between"
-        gap="4rem"
-        direction={`${reverse ? "row-reverse" : "row"}`}
-        style={`${reverse ? "text-align:right;" : "text-align: left;"}`}
-      >
-        <Flex
-          direction="column"
-          gap="3rem"
-          flex="0.5"
-          align={`${reverse ? "flex-end" : "flex-start"}`}
-        >
-          <div>
-            <HeadingSmall>Featured Project</HeadingSmall>
-            <Heading>{name}</Heading>
-          </div>
-
-          <TextBase>{description}</TextBase>
-          <Flex align="center" gap="1rem">
-            <Slot />
-          </Flex>
-          <Flex align="center" gap="1rem">
-            {technologies.map((technology, index) => (
-              <TextBase style="color:var(--tertiary-color)">
-                <span key={index}>{technology}</span>
-              </TextBase>
-            ))}
-          </Flex>
-        </Flex>
-
-        <div style="flex: 1;">
-          <img src="./public/images/test.svg" />
+    <div class={`container ${reverse && "reversed"}`}>
+      <div class={`project-content ${reverse && "reversed"}`}>
+        <div>
+          <Heading variant="small">Featured Project</Heading>
+          <Heading>{name}</Heading>
         </div>
-      </Flex>
+
+        <Text>{description}</Text>
+        <div class="project-subcontent">
+          <Slot />
+        </div>
+        <div class="project-subcontent">
+          {technologies.map((technology, index) => (
+            <Text style="color:var(--tertiary-color)" variant="small">
+              <span key={index}>{technology}</span>
+            </Text>
+          ))}
+        </div>
+      </div>
+
+      <div class="project-image">
+        <img src="./public/images/test.svg" />
+      </div>
     </div>
   );
 });
@@ -126,22 +106,25 @@ export default component$(() => {
           align="center"
           style="text-align: center; "
         >
-          <HeadingLarge>Full Stack Web Developer</HeadingLarge>
-          <TextBase style="max-width: 1000px;">
-            Focusing on creating applications with React and Node. Currently
-            working part-time building the{" "}
+          <Heading variant="large">
+            Experienced Full Stack Developer Seeking Full-Time Positions
+          </Heading>
+          <Text style="max-width: 1000px;">
+            Specializing in React and Node.js, I build innovative web
+            applications that cater to your unique needs. Currently working part
+            time on the{" "}
             <span class="accent">
               <a href="https://slotfocus.com" target="_blank">
                 Slotfocus
               </a>
             </span>{" "}
-            web application.
-          </TextBase>
+            web app - a data analytics tool for casinos.
+          </Text>
         </Flex>
       </section>
       <section class="contact">
         <Flex direction="column" align="center" gap="1rem">
-          <HeadingSmall>Get in touch</HeadingSmall>
+          <Heading variant="small">Get in touch</Heading>
           <Flex align="center" justify="center" gap="2.5rem">
             <Link href="#">
               <MailIcon class="icon-link" />

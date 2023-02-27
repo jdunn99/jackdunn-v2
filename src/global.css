@@ -2,10 +2,12 @@
   --max-width: 130rem;
   --background-color: #191724;
   --background-accent-color: #434343;
-  --foreground-color: #E2E1E7;
+  --foreground-color: #fff;
   --foreground-accent-color: #a9a9a9;
   --accent-color: #00a0e4;
   --tertiary-color: #18baff;
+
+  --accent-rgb: 0, 160, 228;
 }
 
 html {
@@ -18,11 +20,18 @@ html {
 }
 
 body {
+  background: radial-gradient(
+    ellipse at top,
+    rgba(var(--accent-rgb), 0.1) 10%,
+    var(--background-color) 100%
+  );
+
+
   overflow-x: hidden;
   color: var(--foreground-color);
   background-color: var(--background-color);
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    sans-serif;
+  font-family: "Poppins", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, sans-serif;
 }
 
 .accent {

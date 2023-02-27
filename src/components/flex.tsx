@@ -35,19 +35,20 @@ export const Flex = component$(
     style,
     ...rest
   }: FlexProps) => {
+    const flexStyles = `
+      display: flex;
+      list-style-type: none;
+      justify-content: ${justify || "flex-start"};
+      flex-direction: ${direction || "row"};
+      flex: ${flex || "0"};
+      align-items: ${align || "stretch"};
+      gap: ${gap || "0"};
+      flex-wrap: ${wrap || "nowrap"};
+      ${style}
+    `;
 
     return (
-      <div
-        {...rest}
-        style={`display: flex; list-style-type: none; wrap: ${
-          wrap || "nowrap"
-        }; justify-content: ${justify || "flex-start"}; flex-direction: ${
-          direction || "row"
-        }; flex: ${flex || "0"}; align-items: ${align || "stretch"}; gap: ${
-          gap || "0"
-        }; ${style}
-         `}
-      >
+      <div {...rest} style={flexStyles}>
         <Slot />
       </div>
     );
