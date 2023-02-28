@@ -35,7 +35,7 @@ export const Navbar = component$(() => {
           <NavItem href="/contact">Contact</NavItem>
           <NavItem href="/projects">Projects</NavItem>
           <NavItem href="/blog">Blog</NavItem>
-          <NavItem href="/resume">Resume</NavItem>
+          <NavItem href="/resume.pdf">Resume</NavItem>
         </Flex>
       </nav>
     </header>

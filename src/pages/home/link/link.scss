@@ -1,0 +1,13 @@
+.link {
+  margin-top: 7rem;
+  color: var(--accent-color);
+  font-size: 2rem;
+
+  &:hover {
+    color: var(--tertiary-color) !important;
+  }
+
+  &:visited {
+    color: var(--accent-color);
+  }
+}
