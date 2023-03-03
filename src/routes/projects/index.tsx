@@ -1,41 +1,47 @@
-import { component$, Resource, useResource$, useTask$ } from "@builder.io/qwik";
-import { useContent } from "@builder.io/qwik-city";
-import { statSync } from "fs";
-import { readdir } from "fs/promises";
-import type { MarkdownMetadata } from "~/utils/markdown";
-import { parseMarkdownMetadata } from "~/utils/markdown";
+import { component$, Resource, useStyles$ } from "@builder.io/qwik";
+import { Heading, Text } from "~/components/fonts/fonts";
+import { PostItem } from "~/components/post/post";
+import { HomePost, Posts, tempPost } from "~/pages/home/post/post";
+import { useMarkdown } from "~/utils/hooks/useMarkdown";
 
 export default component$(() => {
-  const menu = useContent();
+  const metadata = useMarkdown("projects");
 
-  const test = useResource$<MarkdownMetadata[] | undefined>(
-    async ({ cleanup }) => {
-      const controller = new AbortController();
-      cleanup(() => controller.abort());
+  useStyles$(`
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr / repeat(3, auto);
+      }
 
-      const result = await readdir("./src/routes/projects");
-      const paths = result.filter((file) =>
-        statSync(`./src/routes/projects/${file}`).isDirectory()
-      );
+ 
 
-      return parseMarkdownMetadata(paths);
+
+    .container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1100px;
+    margin: auto;
+  }
+
     }
-  );
+  `);
 
   return (
-    <div>
-      <Resource
-        value={test}
-        onResolved={(data) => {
-          return (
-            <div>
-              {data?.map((item: MarkdownMetadata, index) => (
-                <div key={index}>{item.title}</div>
-              ))}
-            </div>
-          );
-        }}
-      />
-    </div>
+    <Resource
+      value={metadata}
+      onResolved={(data) => {
+        if (typeof data === "undefined") return <></>;
+
+        // parse out the first index for the featured item.
+        const [featured, ...rest] = data;
+
+        return (
+          <div class="container">
+            <PostItem post={tempPost} featured />
+          </div>
+        );
+      }}
+    />
   );
 });

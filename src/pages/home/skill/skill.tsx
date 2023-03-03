@@ -4,6 +4,7 @@ import {
   useSignal,
   useStyles$,
 } from "@builder.io/qwik";
+import { Animated } from "~/components/animated";
 import { Text } from "~/components/fonts/fonts";
 import { HomeLink } from "../link/link";
 import styles from "./skill.scss?inline";
@@ -16,19 +17,18 @@ interface SkillProps {
 
 const Skill = component$(({ title, subtitle, image }: SkillProps) => {
   useStyles$(styles);
-  const visible = useSignal("hidden");
-
-  useBrowserVisibleTask$(() => {
-    visible.value = "img-shown";
-  });
-
+ 
   return (
-    <div class={`${visible.value} item`}>
+    <div class="item">
+    <Animated time="1s">
       <img src={image} />
+      </Animated>
+      <Animated time="1.5s">
       <div>
         <Text class="heading">{title}</Text>
         <Text variant="small">{subtitle}</Text>
       </div>
+      </Animated>
     </div>
   );
 });

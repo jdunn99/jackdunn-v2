@@ -1,10 +1,5 @@
-import {
-  component$,
-  Slot,
-  useBrowserVisibleTask$,
-  useSignal,
-  useStyles$,
-} from "@builder.io/qwik";
+import { component$, Slot, useStyles$ } from "@builder.io/qwik";
+import { Animated } from "~/components/animated";
 import styles from "./link.scss?inline";
 
 interface LinkProps {
@@ -13,17 +8,14 @@ interface LinkProps {
 
 export const HomeLink = component$(({ href }: LinkProps) => {
   useStyles$(styles);
-  const visible = useSignal("hidden");
-
-  useBrowserVisibleTask$(() => {
-    visible.value = "shown";
-  });
 
   return (
-    <div class={`${visible.value} centered`}>
-      <a href={href} class="link">
-        <Slot />
-      </a>
-    </div>
+    <Animated time="1s">
+      <div class="centered">
+        <a href={href} class="link">
+          <Slot />
+        </a>
+      </div>
+    </Animated>
   );
 });

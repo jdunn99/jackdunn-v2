@@ -1,7 +1,157 @@
----
-title: "Testing"
-published: "12 June, 2022"
----
+export const metadata = {
+  title: "Building a Tableau Library in React",
+  description: "Learn the basics of embedding a Tableau dashboard in your React app, and how to abstract it into hooks / components.",
+  published: "January 04, 2022"
+}
 
-This is a <span class="accent">test</span>.
-In my opinion. I think chicken is good.
+# {metadata.title}
+
+{metadata.published}
+
+<br />
+{metadata.description}
+
+## Introduction
+
+### What is Tableau?
+
+Tableau is a data visualization and business intelligence software that helps people see and understand their data. It allows users to connect, visualize and share data in a user-friendly and interactive way.
+
+### Why Embedded Tableau
+
+Embedding a Tableau application allows you to integrate your Tableau workbooks into your own services, allowing for more customization and extensibility.
+
+Rather than using a Tableau service that your users can access (like Tableau Reader or Online), you can embed your application and manage everything on your end with Tableaus APIs.
+
+This allows for a more seamless user experience, as well as a more flexible development process.
+
+### Structure of a Tableau Viz
+
+The Tableau application consists of a global **Viz** object which contains all data, filters, parameters, marks (ex. charts & tables), and other user interface.
+
+The Viz contains a **Workbook** which contains a collection of **Sheet** objects (either a **Dashboard**, **Worksheet**, or **Story**). A Sheet is where you build an interface for your data.
+
+A more detailed explanation of the Tableau architecture can be found here.
+
+## Embedding Tableau with React
+
+### Initializing the API
+
+The key component of embedded Tableau is the Tableau Javascript API. To initialize the API, you can paste the following code into your **public/index.html** file.
+
+```typescript
+<script
+type="text/javascript"
+src="https://SERVER_NAME/javascripts/api/tableau-2.min.js"> </script>
+```
+
+Where **SERVER_NAME** is the name of your Tableau server you are using. For example, public.tableau.com or online.tableau.com for Tableau public and online.
+
+For usage with NextJS, you can load the script tag using the **`<Head>`** and **`<Script>`** tags in your \_app file.
+
+```jsx
+import Head from "next/head";
+import Script from "next/script";
+
+function App({ Component, pageProps }) {
+  return (
+    <React.Fragment>
+      <Head>
+        <Script
+          src="https://SERVER_NAME/javascripts/api/tableau-2.min.js"
+          type="text/javascript"
+        />
+      </Head>
+      <Component {...pageProps} />
+    </React.Fragment>
+  );
+}
+```
+
+Once the API is added, you can access the Tableau object as a child of the window object.
+
+```js
+const { tableau } = window;
+```
+
+You can also ensure that the component is mounted before calling the Tableau API via a ref or using a state object.
+
+```jsx
+const [tableau, setTableau] = React.useState(null);
+
+React.useEffect(() => {
+  if (typeof window !== "undefined") setTableau(window.tableau);
+}, []);
+```
+
+### Embedding the Viz
+
+A Viz is the uppermost level of a Tableau instance. To embed a Viz you need the URL of the Viz you want to embed and the container element you want to embed it in. In the Slotfocus Tableau library, we use the container as a Viz component and maintain the actual Viz object stored in a Zustand global store.
+
+If you try to access the Viz object before it is fully loaded, Tableau will throw an error and your app will crash. To solve this problem, you can utilize a Promise and that resolves once the Viz is loaded. You can tell when the Viz is fully loaded through the onFirstInteractive callback in the Viz constructor.
+
+In the example below, we will keep things simple and just use the Viz object as a hook.
+
+```jsx
+export const useViz = (ref, url) => {
+  // if you want to have acess to any objects below the viz, you have to make sure the viz is loaded
+  const [mounted, setMounted] = React.useState(false);
+  const [viz, setViz] = React.useState(null);
+
+  React.useEffect(() => {
+    if (ref.current) {
+      setViz((viz) => {
+        if (viz) viz.dispose();
+        return new tableau.Viz(ref.current, url, {
+          onFirstInteractive: () => setMounted(true), // onFirstInteractive is a callback from the API that tells you when the Viz is fully loaded
+        });
+      });
+    }
+  }, [ref, url]);
+
+  return new Promise((resolve) => {
+    if (mounted) resolve(viz);
+  });
+};
+
+export const Component = () => {
+  const ref = React.useRef(null);
+
+  // if you don't need to access anything inside the viz and simply want to embed
+  useViz(ref, "https://public.tableau.com/views/SampleViz/SampleViz");
+
+  return <div ref={ref} />;
+};
+```
+
+### Extending the Viz
+
+Once you have embedded the Viz object and it has loaded, you can now access any properties found in the Viz class for the Tabelau Javascript API.
+
+For example, to access the current sheet and select marks:
+
+```jsx
+export const Component = () => {
+  const ref = React.useRef(null);
+  const viz = useViz(
+    ref,
+    "https://public.tableau.com/views/RegionalSampleWorkbook/College"
+  );
+
+  const handleClick = async () => {
+    const sheet = (await viz).getWorkbook().getActiveSheet();
+    await sheet.selectMarksAsync(
+      "College",
+      "Engineering",
+      tableau.SelectionUpdateType.REPLACE
+    );
+  };
+
+  return (
+    <div>
+      <div ref={ref} />
+      <button onClick={handleClick}>Export</button>
+    </div>
+  );
+};
+```

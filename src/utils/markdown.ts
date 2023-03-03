@@ -1,59 +1,24 @@
 // Simple markdown metadata parser.
-import fs from "fs";
-import readline from "readline";
+import { statSync } from "fs";
+import { readdir } from "fs/promises";
 
-export type MarkdownMetadata = {
-  title?: string;
-  published?: string;
-  description?: string;
-};
+export type MDMetadata = {
+  title: string;
+  description: string;
+  published: string;
+}
 
-/**
- * Parses metadata in YAML format from a list of Markdown files
- * @param paths - List of file paths to read Markdown files from
- * @returns A Promise that resolves to an array of objects representing the parsed metadata for each file
- */
-export const parseMarkdownMetadata = async (paths: string[]) => {
-  if (!paths) return;
+export async function extractMetadata(path: string) {
+  const dirs = (await readdir(`./src/routes/${path}`)).filter((file) =>
+    statSync(`./src/routes/${path}/${file}`).isDirectory()
+  );
+
   return await Promise.all(
-    paths.map((path) => {
-      const stream = fs.createReadStream(
-        `./src/routes/projects/${path}/index.mdx`,
-        "utf8"
+    dirs.map(async (filePath) => {
+      const { metadata } = await import(
+        `../routes/${path}/${filePath}/index.mdx`
       );
-      const lines = readline.createInterface({
-        input: stream,
-        crlfDelay: Infinity,
-      });
-
-      return parseYaml(lines);
+      return metadata satisfies MDMetadata;
     })
   );
-};
-
-/**
- * Parse metadata block from a stream of lines using '---' as a delimiter.
- * @param rl - The readline interface for the stream of lines.
- * @returns The parsed metadata object.
- */
-const parseYaml = async (lines: readline.Interface) => {
-  const metadata: MarkdownMetadata = {};
-  let isReadingMetadata: boolean = false;
-
-  for await (const line of lines) {
-    // if the line is --- toggle reading metadata on/off
-    if (line === "---") {
-      if (isReadingMetadata) break;
-      else isReadingMetadata = true;
-    } else if (isReadingMetadata) {
-      // we are reading metadata
-      const [key, value] = line.split(":");
-      if (typeof key === "undefined") throw new Error("Key not found");
-      if (typeof value === "undefined") throw new Error("Value not found");
-
-      metadata[key as keyof typeof metadata] = JSON.parse(value);
-    }
-  }
-
-  return metadata;
-};
+}

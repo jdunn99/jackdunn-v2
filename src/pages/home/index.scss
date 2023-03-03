@@ -11,7 +11,7 @@
       text-align: center;
       justify-content: center;
       align-items: center;
-    } 
+    }
   }
 
   .contact {
@@ -20,12 +20,26 @@
       flex-direction: column;
       align-items: center;
       gap: 1rem;
-    } 
+    }
 
     .links {
       display: flex;
       align-items: center;
       gap: 2.5rem;
+    }
+  }
+
+  .email-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10rem;
+
+    p {
+      max-width: 800px;
+      text-align: center;
+      margin-bottom: 3rem;
     }
   }
 }

@@ -2,56 +2,80 @@
   display: flex;
   flex-direction: column;
   gap: 16rem;
+}
 
-  .container {
+.projects-container {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+
+.projects-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 3rem;
+
+  .buttons * {
+    margin-left: 1rem;
+  }
+}
+
+.projects-technologies {
+  display: inline-block;
+  span {
+    margin-left: 1rem;
+    font-size: 1.4rem;
+    color: var(--accent-color);
+  }
+}
+
+.projects-images {
+  flex: 1;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: 2rem;
+
+  img {
+    max-width: 100%;
+  }
+
+  div {
     display: flex;
-    gap: 4rem;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
 
-    .content {
-      display: flex;
-      flex-direction: column;
-      flex: 0.75;
-      gap: 3rem;
 
-      .buttons * {
-        margin-left: 1rem;
-      }
-    }
 
-    .technologies {
-      display: inline-block;
-      span {
-        margin-left: 1rem;
-        font-size: 1.4rem;
-        color: var(--accent-color);
-      }
-    }
 
-    .images {
-      flex: 1;
-      display: grid;
-      justify-items: center;
+.projects-container:nth-child(even) {
+  flex-direction: row-reverse;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+@media (max-width: 1024px) {
+  .projects-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    .projects-content {
       align-items: center;
-      gap: 2rem;
-
-      img {
-        width: 100%;
-      }
-
-      div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-      }
+      justify-content: center;
     }
   }
 
-  .container:nth-child(even) {
-    flex-direction: row-reverse;
-    text-align: right;
-    justify-content: flex-end;
+  .projects-container:nth-child(even) {
+    flex-direction: column !important;
+    text-align: center;
+    justify-content: center;
   }
 }

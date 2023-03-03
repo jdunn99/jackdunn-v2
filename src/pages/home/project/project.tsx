@@ -3,9 +3,11 @@ import {
   useBrowserVisibleTask$,
   useSignal,
   useStyles$,
+  useStylesScoped$,
 } from "@builder.io/qwik";
-import type { Project, ProjectImage } from "~/assets/static/projects";
-import { featuredProjects } from "~/assets/static/projects";
+import type { Project } from "~/assets/static/projects";
+import { featuredProjects, ProjectImage } from "~/assets/static/projects";
+import { Animated } from "~/components/animated";
 import { Button } from "~/components/button";
 import { Heading, Text } from "~/components/fonts/fonts";
 import { HomeLink } from "../link/link";
@@ -45,61 +47,64 @@ const ProjectButtons = component$(
 
 const ProjectImage = component$(({ image }: ImageProps) => {
   useStyles$(styles);
-  const visible = useSignal("hidden");
-
-  useBrowserVisibleTask$(() => {
-    visible.value = "img-shown";
-  });
 
   return (
     <div
-      class={`images ${visible.value}`}
+      class={`projects-images`}
       style={`grid-template-columns: ${
         image.large.children ? "1fr 1fr" : "1fr"
       }`}
     >
-      <img src={image.large.main} />
+      <Animated time="1s">
+        <img src={image.large.main} />
+      </Animated>
       {image.large.children ? (
         <div>
-          {image.large.children.map((image: string) => (
-            <img src={image} key={image} />
+          {image.large.children.map((image: string, index) => (
+            <Animated time={`${index + 0.5}s`}>
+              <img src={image} key={image} />
+            </Animated>
           ))}
         </div>
       ) : null}
     </div>
   );
 });
+
 const ProjectContainer = component$(({ project }: ProjectProps) => {
-  const visible = useSignal("hidden");
   const { name, technologies, description, image } = project;
 
-  useBrowserVisibleTask$(() => {
-    visible.value = "shown";
-  });
-
   return (
-    <div class={`${visible.value} container `}>
-      <div class="content">
-        <div>
-          <Heading variant="small">Featured Project</Heading>
-          <Heading>{name}</Heading>
-        </div>
+    <div class="projects-container">
+      <div class="projects-content">
+        <Animated>
+          <div>
+            <Heading variant="small">Featured Project</Heading>
+            <Heading>{name}</Heading>
+          </div>
+        </Animated>
 
-        <Text>{description}</Text>
-        <ProjectButtons codeUrl={project.codeUrl} demoUrl={project.demoUrl} />
-        <div class="technologies">
-          {technologies.map((technology, index) => (
-            <span key={index}>{technology}</span>
-          ))}
-        </div>
+        <Animated>
+          <Text>{description}</Text>
+        </Animated>
+        <Animated>
+          <ProjectButtons codeUrl={project.codeUrl} demoUrl={project.demoUrl} />
+        </Animated>
+        <Animated>
+          <div class="projects-technologies">
+            {technologies.map((technology, index) => (
+              <span key={index}>{technology}</span>
+            ))}
+          </div>
+        </Animated>
       </div>
-      <ProjectImage image={image} />{" "}
+      <ProjectImage image={image} />
     </div>
   );
 });
 
 export const HomeProjects = component$(() => {
-  useStyles$(styles);
+  useStylesScoped$(styles);
 
   return (
     <section class="projects">

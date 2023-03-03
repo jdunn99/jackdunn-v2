@@ -39,6 +39,9 @@
     "vite-tsconfig-paths": "3.5.0"
   },
   "dependencies": {
-    "qwik-feather-icons": "^1.2.0"
+    "mdx-prism": "^0.3.4",
+    "qwik-feather-icons": "^1.2.0",
+    "rehype": "^12.0.1",
+    "rehype-highlight": "^6.0.0"
   }
 }
