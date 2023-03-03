@@ -6,7 +6,6 @@ export type LargeImage = {
   children?: string[];
 };
 export type ProjectImage = {
-  thumbnail: string;
   large: LargeImage;
 };
 export type Project = {
@@ -16,15 +15,16 @@ export type Project = {
   description: string;
   technologies: string[];
   image: ProjectImage;
+  slug: string;
 };
 
 export const projects: Project[] = [
   {
+    slug: "/projects/slotfocus",
     name: "Slotfocus",
     description:
       "Originally an on-premises managed solution, Slotfocus developed a web application of their existing platform in early 2020 to handle pandemic restrictions in casinos and a growing client base.",
     image: {
-      thumbnail: "/images/slotfocus.png",
       large: {
         main: "/images/slotfocus.svg",
       },
@@ -32,11 +32,11 @@ export const projects: Project[] = [
     technologies: ["React", "Typescript", "Firebase", "Tableau", "ChakraUI"],
   },
   {
+    slug: "/projects/issuetracker",
     name: "IssueTracker",
     description:
       "IssueTracker is a collaboration tool that is used to track and manage projects and issues. It provides a simple and flexible way to manage and track work, allowing users to easily create, assign, and monitor tasks, track progress, and collaborate with others in real-time",
     image: {
-      thumbnail: "/images/issuetracker.png",
       large: {
         main: "/images/issue-main.svg",
         children: [
@@ -51,11 +51,11 @@ export const projects: Project[] = [
     codeUrl: "https://github.com/jdunn99/issuetracker",
   },
   {
+    slug: "/projects/trials-tracker",
     name: "Trials Tracker",
     description:
       "Trials Tracker is a data visualization web application for Destiny 2's Trials of Osiris game mode. The front-end is built using Next JS and contains a dashboard of 3 pages for viewing a Destiny 2 user's Trials of Osirsis statistics, their match history across all characters, and to check their guadian's loadouts.",
     image: {
-      thumbnail: "/images/issuetracker.png",
       large: {
         main: "/images/trials-main.svg",
         children: ["/images/trials-child1.svg", "/images/trials-child2.svg"],
@@ -66,29 +66,13 @@ export const projects: Project[] = [
     codeUrl: "https://github.com/jdunn99/trials-tracker",
   },
   {
+    slug: "/projects/fanstop",
     name: "FanStop",
     description: "",
     image: {
-      thumbnail: "",
-      large: "",
-    },
-    technologies: [] as string[],
-  },
-  {
-    name: "Wordle",
-    description: "",
-    image: {
-      thumbnail: "",
-      large: "",
-    },
-    technologies: [] as string[],
-  },
-  {
-    name: "Booking App",
-    description: "",
-    image: {
-      thumbnail: "",
-      large: "",
+      large: {
+        main: "",
+      },
     },
     technologies: [] as string[],
   },

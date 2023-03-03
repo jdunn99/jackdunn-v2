@@ -45,7 +45,7 @@ export const NavSmall = component$(() => {
               </a>
               <NavItem href="/contact">Contact</NavItem>
               <NavItem href="/projects">Projects</NavItem>
-              <NavItem href="/blog">Blog</NavItem>
+              <NavItem href="/posts">Blog</NavItem>
               <NavItem href="/resume.pdf">Resume</NavItem>
             </div>
           </div>
@@ -78,7 +78,7 @@ export const Navbar = component$(() => {
         <div class="links-large">
           <NavItem href="/contact">Contact</NavItem>
           <NavItem href="/projects">Projects</NavItem>
-          <NavItem href="/blog">Blog</NavItem>
+          <NavItem href="/posts">Blog</NavItem>
           <NavItem href="/resume.pdf">Resume</NavItem>
         </div>
       </nav>

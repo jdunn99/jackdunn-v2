@@ -7,7 +7,7 @@ import { HomeLink } from "../link/link";
 
 // TODO: change this 
 const recentPost: Post = {
-  slug: "tableau-react",
+  slug: "posts/react-tableau",
   title: "Buidling a Tableau Library in React",
   description: "Learn the basics of embedding a Tableau dashboard in your React app, and how to abstract it into hooks / components.",
   published: "January 04, 2022",

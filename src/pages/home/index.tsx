@@ -47,7 +47,7 @@ const Contact = () => (
             <Link href="https://github.com/jdunn99">
               <GithubIcon />
             </Link>
-            <Link href="https://github.com/jdunn99">
+            <Link href="https://www.linkedin.com/in/jack-dunn-7548a920a/">
               <LinkedinIcon />
             </Link>
           </div>

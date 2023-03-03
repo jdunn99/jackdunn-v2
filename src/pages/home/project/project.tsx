@@ -3,11 +3,13 @@ import {
   useStyles$,
   useStylesScoped$,
 } from "@builder.io/qwik";
+import { ExternalLinkIcon } from "qwik-feather-icons";
 import type { Project } from "~/assets/static/projects";
 import { featuredProjects, ProjectImage } from "~/assets/static/projects";
 import { Animated } from "~/components/animated";
 import { Button } from "~/components/button";
 import { Heading, Text } from "~/components/fonts/fonts";
+import { Link } from "~/components/link";
 import { HomeLink } from "../link/link";
 import styles from "./project.scss?inline";
 
@@ -70,7 +72,7 @@ const ProjectImage = component$(({ image }: ImageProps) => {
 });
 
 const ProjectContainer = component$(({ project }: ProjectProps) => {
-  const { name, technologies, description, image } = project;
+  const { name, technologies, slug, description, image } = project;
 
   return (
     <div class="projects-container">
@@ -78,7 +80,7 @@ const ProjectContainer = component$(({ project }: ProjectProps) => {
         <Animated>
           <div>
             <Heading variant="small">Featured Project</Heading>
-            <Heading>{name}</Heading>
+            <Link href={slug}><Heading>{name}</Heading></Link>
           </div>
         </Animated>
 
@@ -94,6 +96,11 @@ const ProjectContainer = component$(({ project }: ProjectProps) => {
               <span key={index}>{technology}</span>
             ))}
           </div>
+        </Animated>
+        <Animated>
+        <Text>
+          <Link href={slug}>Read more →       </Link>
+          </Text>
         </Animated>
       </div>
       <ProjectImage image={image} />
