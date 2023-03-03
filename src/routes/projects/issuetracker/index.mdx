@@ -1,0 +1,76 @@
+import { MarkdownTitle } from "../../../components/markdown/markdown";
+export const metadata = {
+  title: "Slotfocus",
+  description: "Create posts, and subscribe to creators.",
+  published: "",
+  slug: "/projects/issuetracker",
+};
+
+<MarkdownTitle metadata={metadata} />
+
+To use this demo you can either create an account or use the account: **`demo@jackdunn.info`** and password **demo123**
+
+IssueTracker is a collaboration tool that is used to track and manage projects and issues.
+
+## Features and Development
+
+The project consists of a GraphQL webserver and a front-end built in React.
+
+The GraphQL webserver is built using **Apollo** and **Typescript**.
+Type safety is ensured with **TypeGraphQL**. Data is stored in a **PostgreSQL** database, and connected with **TypeORM**.
+
+Authorization & authentication is handled with Express session stored in a **Redis** database.
+
+The front-end is built using **Chakra UI**, and uses **Apollo client**.
+Each page on the application contains both a `Navbar` and a `Sidebar` that can be used to navigate between pages.
+Type safety between the GraphQL client and server is guaranteed with **GraphQL Code generator**
+
+#### Project Status
+
+I have since moved on from updating this project and some features may be outdated.
+The project used an old version of Apollo server/client, but still works.
+Eventually, I might upgrade to Apollo 3 and add some new features - but for now I'm just going to keep it as is.
+
+### Profile Page
+
+The profile page consists of a live feed that reads data over **Websocket** through GraphQL **subscriptions**. It also includes some basic information about the projects you have contributed to.
+
+### Projects Page
+
+
+The projects page contains a table, built with **React Table**.
+Clicking on the `Add Project` button will render a page to create a new project.
+All a project needs to be created is a title and a description - you will automatically be placed in the project with the role as creator.
+
+### Project Page
+
+A project is the main content of the application, and contains various users and issues.
+
+#### Issues
+
+Issues are displayed in a list categorized by status.
+Each issue has a title, a description, and a severity rating.
+
+You can change an issue's status (given you have the appropriate permissions) by dragging and dropping it in the appropriate category container.
+This was achieved using the library **react-beautiful-dnd**.
+
+If you have edit permissions, clicking on the pencil icon when hovering over an issue will open a form to edit the issue.
+From there you can change the name, description, or severity.
+
+This page also includes two modals. The first modal allows you to create an issue, and add it to the list using a GraphQL **mutation**.
+The second modal allows you to add comments to a specific issue - data is sent via GraphQL **subscriptions**.
+
+#### Users
+
+The users page is built using the same `React Table` component from the projects page.
+
+If you have the proper permissions, you are able to check users to remove them from the project.
+Also, a dropdown will render for any user other than yourself in which you can change their role on the project.
+
+Clicking on the Add Users button renders a modal where you can search users by email. This returns a lsit of possible users, which can then be checked and inserted into the project.
+
+#### Settings
+
+The project settings page contains a form to edit the project's title and description.
+If you are the owner of the project, you will be given the option to delete the project.
+Otherwise, you will be given the option to leave the project.

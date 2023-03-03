@@ -9,6 +9,10 @@ export default component$(() => {
 
     }
 
+    ul {
+      padding: 2rem 4rem;
+    }
+
     div {
       font-size: 1.8rem;
       color: var(--foreground-accent-color);
@@ -22,7 +26,7 @@ export default component$(() => {
       color: var(--foreground-color);
     }
 
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
       color: var(--foreground-color);
       font-weight: bold;
     }

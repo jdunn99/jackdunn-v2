@@ -1,0 +1,79 @@
+import { MarkdownTitle } from "../../../components/markdown/markdown";
+import { Link } from "../../../components/link";
+export const metadata = {
+  title: "Trials Tracker",
+  description: "Track your Destiny 2 Trials of Osiris stats, view and filter your matches, and your guardian's builds.",
+  published: "",
+  slug: "/projects/trials-tracker",
+};
+
+<MarkdownTitle metadata={metadata} />
+
+**Note**: As of 2022 I have not been maintaining this project and there may be some issues with the Bungie API manifest being outdated.
+<br />
+
+## Introduction
+Trials Tracker is a data visualization web application for Destiny 2's Trials of Osiris game mode.
+Trials of Osiris is a competitive Player vs Player (PVP) gamemode where players compete in a series of 3v3 matches, with a goal of achieving 7 wins in a row.
+
+Having recently been updated in Destiny 2, Trials of Osiris has seen a <Link href='https://twitter.com/TrialsReport/status/1478427778722766848'>massive</Link>
+increase in players and is one of the most popular modes in Destiny 2.
+
+Data for this app is received from the bungie.net official API and processed through a web server running Express.
+
+The front-end is built using **NextJS** and contains 3 pages of information.
+A page for viewing a Destiny 2 user's Trials of Osirsis statistics, a page for their match history across all characters,
+and a page to check their guadian's loadouts.
+
+## Features & Development
+
+I was inspired to start this project after using sites like <Link href="https://www.destinytracker.com/">Destiny Tracker</Link> and <Link href="https://www.destinytrialsreport.com/" >Trials Report</Link>, and finding that while these sites had useful information, I would rather have a more generalized dipslay of Trials of Osiris stats.
+
+For example, `Trials Report` doesn't include any match information, and to view `Destiny Tracker`'s
+Trials of Osiris information, you have to navigate through multiple pages and isn't as easily accessible.
+
+Currently, any development on this project is being used to optimize the front-end and add more type safety from the bungie.net API. For ease of hosting, I ended up switching the Express server to use Next JS Api routes.
+
+
+
+### Back-End
+
+The web server running Express is a REST API that acts as a bridge between the client and the bungie.net API.
+
+Each call to a bungie.net API is passed through a request handler that adds the API key to the request and makes sure inputs are valids.
+Responses are also sent through a handler to ensure that no error codes are returned from the bungie.net API.
+
+Those responses are then parsed / filtered and returned to the client.
+
+### Front-End
+
+The front-end consists of a **overview** page, **matches** page, and a **guardian** page.
+
+All data fetched from the back-end is cached using **React Query**,
+which allows for faster load times for already fetched data.
+
+The interface is built using Chakra UI and is fully responsive.
+
+### Overview
+
+The overview page displays a general overview of your Trials of Osiris statistics.
+
+More specifically, it includes your overall stats, the stats for the current season (a season in Destiny is a specific period of time relative to the release of the game),
+your weapons and characters that you've used in Trials of Osiris, and some stats for your best overall game.
+
+Each of these sections are broken down into reusable components that are also used in other pages.
+
+### Matches
+
+The matches page displays your Trials of Osiris match history.
+
+Matches are rendered in a list and paginated using the Intersection Obsever API.
+Matches are also filterable by **Status** (win or lose), **Map**, **Character**, and sortable by any of these properties.
+
+Each match item can be clicked, which calls the API to load more information about the match. The match then "opens" and displays that information. Clicking on the match again will close it.
+
+### Guardians
+
+A guardian is your character in Destiny.
+
+This page calls the back-end to get more information about your current guardian's build (the gear they are using and their accompanying stats).

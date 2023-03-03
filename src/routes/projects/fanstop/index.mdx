@@ -1,0 +1,62 @@
+import { MarkdownTitle } from "../../../components/markdown/markdown";
+export const metadata = {
+  title: "FanStop",
+  description: "Create posts, and subscribe to creators.",
+  published: "",
+  slug: "/projects/fanstop",
+};
+
+<MarkdownTitle metadata={metadata} />
+
+To use the demo, feel free to either create your own account or use:
+**`demo@jackdunn.info`** and password **demo**.
+
+**Note**: This project hasn't been maintained since very early 2021, and is somewhat unfinished.
+As of 01/11/2022, I have started to update some components, libraries, and fix bugs.
+
+## Introduction
+FanStop is a fan-base management system. It allows users to create posts, and subscribe to creators.
+
+## Features and Development
+
+The project consists of a GraphQL webserver built with Apollo server,
+and a front-end built in NextJS.
+
+Authorization & authentication is handled with **JSON Web Tokens** (JWTs) encoded in cookies and parsed with custom middleware.
+
+### Profile Page
+
+The profile/main page contains any posts you have made,
+a feed of all posts from creators you are subscribed to,
+and all the users you are supporting
+
+#### My Posts
+
+On the **My Posts** page, you can see all the posts you have made.
+Posts are Paginated using **cursor** based pagination.
+If you are viewing your own profile you can edit or delete posts by pressing the corresponding icons.
+
+#### Feed
+
+The **Feed** page contains a feed of all posts from creators you are subscribed to.
+They are also paginated using **cursor** based pagination.
+
+#### Supporting
+
+The **Supporting** page contains a list of all users you are supporting. Clicking on a user will take you to their profile.
+
+### Post Page
+
+A post page has two basic states: **Editing** or **Viewing**.
+All posts from other profiles default to the **Viewing** state, and you can switch between the two states if the post was created by yourself.
+
+#### Editing State
+
+In the **Editing** state you can modify / create the content of a post.
+
+Each post contains a title and a description, followed by the actual content.
+Each piece of content rendered by the editor is wrapped with an **Insert** component that allows you to insert content (either a **Title** or **Text** component) in the corresponding location.
+
+#### Viewing State
+
+The viewing state simply renders the content based on the properties (title, description, content) of the post.

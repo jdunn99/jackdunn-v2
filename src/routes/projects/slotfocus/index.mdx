@@ -1,0 +1,97 @@
+import { MarkdownTitle } from "../../../components/markdown/markdown";
+import { Link } from "../../../components/link";
+export const metadata = {
+  title: "Slotfocus",
+  description: "SaaS powered by React & Tableu.",
+  published: "",
+  slug: "/projects/slotfocus",
+};
+
+<MarkdownTitle metadata={metadata} />
+
+## Introduction
+
+**Note**: Since this is a production service, the code is private and the
+product is blocked by a paywall.
+
+Slotfocus offers a data visualization tool design for casinos, packaged with a variety of modules.
+
+Originally an on-premises managed solution, Slotfocus developed a web application of their existing platform in early 2020 to handle pandemic restrictions in casinos and a growing client base.
+
+## Technology
+
+The core of Slotfocus is built with <Link href="https://tableau.com">Tableau</Link> and the web application uses **React**.
+
+### Tableau
+
+- Dashboards, Reports, Analytics, Interactive Maps, and more.
+- 4 unique modules: **Slotfocus**, **Tableplay**, **Players & Profits**, and **Bingo**
+- User management and authentication
+- User authorization through <Link href="https://help.tableau.com/current/server/en-us/rls_bestpractices.htm">row-level security</Link>
+
+### Web Application
+
+- Custom hooks and components to interface with Tableau
+- Global state management with Zustand
+- Custom collapsible dropdown menus to navigate modules & workbooks
+- Reset, export, undo & redo using Tableau API
+- Live comments connected to a Firebase cloud firestore
+- Fully functional fullscreen using the Fullscreen API
+
+## Features & Development
+
+As the sole web developer for Slotfocus, I was responsible for creating the entire web application.
+
+Design was coordinated between other team members but the actual implementation was done by myself.
+
+### Tableau & React Integration
+
+Originally I had intended on using a Tableau library on NPM to embed the dashboard, but soon found that the library wasn't extensive enough and didn't include the features I was looking for.
+
+Therefore, I had to spend a large portion of development time on implementing my own Tableau library for the project.
+
+Some basic info on creating the library can be found here.
+
+### Architecture
+
+From my blog post above, the main features of the Tableau API or the Viz, Workbook, and Sheet objects.
+
+Since these features need to be accessed throughout various components, I connected each object to Zustand global store.
+
+By doing so, I was able to use hooks that first read from the global store, and then have access to these objects. For example, to access the Viz object once it is full loaded:
+
+```jsx
+const useVizAsync = (ref, url) => {
+  const viz = useStore((state) => state.viz); // From a Zustand store
+  const setViz = useStore((state) => state.setViz);
+
+  // on mount, check if the viz is already loaded
+  React.usEffect(() => {
+    if (viz === undefined) {
+      const loadViz = async () => {
+        // here is where we would use the Tableau API to load the viz
+        // where result is a Promise that resolves once the viz fully loads
+        setViz(await result);
+      };
+
+      loadViz();
+    }
+  }, []);
+
+  return new Promise((resolve) => {
+    if (viz) resolve(viz);
+  });
+};
+```
+
+### User Interface
+At first, the app design had all the interface and interactivity natively implemented in Tableua, and the page would only be a container for the Tableau viz.
+
+However, we found that doing this was not ideal, and more difficult to maintain than building out an interface with React. Most components in the interface are built with Chakra UI.
+
+Navigation on the site is done through either the Tableau component directly or through the two collapsible Menu components. These components are all connected together through hooks.
+
+### Admin Page
+The backend that powers the Slotfocus web application is connected via
+an admin page and a Firebase firestore. On the admin page, modules, workbooks,
+and more can be created, updated, and deleted.
