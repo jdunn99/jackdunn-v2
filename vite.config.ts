@@ -12,5 +12,12 @@ export default defineConfig(async () => {
         'Cache-Control': 'public, max-age=600',
       },
     },
+    build: {
+      rollupOptions: {
+        external(source, _importer, _isResolved): boolean | void {
+          if (['fs/promises', 'path'].indexOf(source) != -1) return true
+        },
+      }
+    }
   };
 });
