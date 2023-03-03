@@ -6,6 +6,7 @@ export type MDMetadata = {
   title: string;
   description: string;
   published: string;
+  slug: string;
 }
 
 export async function extractMetadata(path: string) {

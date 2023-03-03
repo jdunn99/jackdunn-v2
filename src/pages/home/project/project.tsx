@@ -3,7 +3,6 @@ import {
   useStyles$,
   useStylesScoped$,
 } from "@builder.io/qwik";
-import { ExternalLinkIcon } from "qwik-feather-icons";
 import type { Project } from "~/assets/static/projects";
 import { featuredProjects, ProjectImage } from "~/assets/static/projects";
 import { Animated } from "~/components/animated";

@@ -1,4 +1,4 @@
-import { component$, Slot, useSignal, useStyles$ } from "@builder.io/qwik";
+import { component$,  useSignal, useStyles$ } from "@builder.io/qwik";
 import styles from "./post.scss?inline";
 import type { Post } from "~/assets/static/posts";
 import { Heading, Text } from "../fonts/fonts";
