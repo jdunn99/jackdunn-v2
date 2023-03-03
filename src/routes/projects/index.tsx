@@ -1,7 +1,5 @@
 import { component$, Resource, useStyles$ } from "@builder.io/qwik";
-import { Heading, Text } from "~/components/fonts/fonts";
 import { PostItem } from "~/components/post/post";
-import { HomePost, Posts, tempPost } from "~/pages/home/post/post";
 import { useMarkdown } from "~/utils/hooks/useMarkdown";
 
 export default component$(() => {
@@ -38,7 +36,7 @@ export default component$(() => {
 
         return (
           <div class="container">
-            <PostItem post={tempPost} featured />
+            <PostItem post={featured} featured />
           </div>
         );
       }}

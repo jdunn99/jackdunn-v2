@@ -1,7 +1,5 @@
 import {
   component$,
-  useBrowserVisibleTask$,
-  useSignal,
   useStyles$,
   useStylesScoped$,
 } from "@builder.io/qwik";

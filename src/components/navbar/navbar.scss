@@ -4,7 +4,6 @@ nav {
   align-items: center;
   justify-content: space-between;
   margin: 1rem 0 0.5rem;
-
 }
 
 li {
@@ -19,5 +18,74 @@ li {
 
   &:hover {
     color: var(--tertiary-color);
+  }
+}
+
+.links-large {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.links-button {
+  display: none;
+}
+
+.small {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .links-large {
+    display: none;
+  }
+
+  .links-button {
+    color: var(--foreground-color);
+    display: block;
+    background: none;
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+  }
+
+  .small {
+    display: block;
+    padding: 4rem;
+  }
+
+  .large {
+    display: none;
+  }
+
+  .menu-container {
+    z-index: 1;
+    position: relative;
+    width: 100%;
+  }
+
+  .menu {
+    position: absolute;
+    background: var(--background-color);
+    left: 0;
+    right: 0;
+    padding: 4rem;
+
+    .links-button {
+      position: absolute;
+      right: 4rem;
+      top: 4rem;
+    }
+
+    .menu-content {
+      display: flex;
+      flex-direction: column;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 2rem;
+    }
   }
 }

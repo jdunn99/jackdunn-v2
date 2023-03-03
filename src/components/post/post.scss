@@ -63,3 +63,25 @@
     overflow: hidden;
   }
 }
+
+@media (max-width: 1024px) {
+  .post-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .featured {
+    max-width: 572px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      border-radius: 1rem 1rem 0 0;
+      height: 216px;
+      flex: 0 0 auto;
+      overflow: hidden;
+    }
+  }
+}

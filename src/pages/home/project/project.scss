@@ -18,14 +18,13 @@
   gap: 3rem;
 
   .buttons * {
-    margin-left: 1rem;
+    margin-right: 1rem;
   }
 }
 
 .projects-technologies {
-  display: inline-block;
   span {
-    margin-left: 1rem;
+    margin-right: 1rem;
     font-size: 1.4rem;
     color: var(--accent-color);
   }
@@ -51,13 +50,22 @@
   }
 }
 
-
-
-
 .projects-container:nth-child(even) {
   flex-direction: row-reverse;
   text-align: right;
   justify-content: flex-end;
+
+  .buttons * {
+    margin-left: 1rem;
+    margin-right: 0;
+  }
+
+  .projects-technologies {
+    span {
+     margin-right: 0;
+     margin-left: 1rem;
+    }
+  }
 }
 
 @media (max-width: 1024px) {

@@ -1,5 +1,10 @@
-import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
-import { Flex } from "../flex";
+import {
+  component$,
+  Slot,
+  useSignal,
+  useStylesScoped$,
+} from "@builder.io/qwik";
+import { MenuIcon, XIcon } from "qwik-feather-icons";
 import { Text } from "../fonts/fonts";
 import styles from "./navbar.scss?inline";
 
@@ -21,22 +26,61 @@ export const NavItem = component$(({ href }: NavItemProps) => {
   );
 });
 
+export const NavSmall = component$(() => {
+  useStylesScoped$(styles);
+
+  const open = useSignal(false);
+
+  return (
+    <>
+      {open.value ? (
+        <div class="menu-container">
+          <div class="menu">
+            <button class="links-button" onClick$={() => (open.value = false)}>
+              <XIcon />
+            </button>
+            <div class="menu-content">
+              <a href="/" class="logo">
+                Jack Dunn
+              </a>
+              <NavItem href="/contact">Contact</NavItem>
+              <NavItem href="/projects">Projects</NavItem>
+              <NavItem href="/blog">Blog</NavItem>
+              <NavItem href="/resume.pdf">Resume</NavItem>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      <header class="small">
+        <nav>
+          <a href="/" class="logo">
+            Jack Dunn
+          </a>
+          <button class="links-button" onClick$={() => (open.value = true)}>
+            <MenuIcon />
+          </button>
+        </nav>
+      </header>
+    </>
+  );
+});
+
 export const Navbar = component$(() => {
   useStylesScoped$(styles);
 
   return (
-    <header>
+    <header class="large">
       <nav>
         <a href="/" class="logo">
           Jack Dunn
         </a>
 
-        <Flex align="center" gap="1rem">
+        <div class="links-large">
           <NavItem href="/contact">Contact</NavItem>
           <NavItem href="/projects">Projects</NavItem>
           <NavItem href="/blog">Blog</NavItem>
           <NavItem href="/resume.pdf">Resume</NavItem>
-        </Flex>
+        </div>
       </nav>
     </header>
   );

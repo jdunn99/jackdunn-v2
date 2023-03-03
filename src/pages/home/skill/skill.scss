@@ -21,3 +21,15 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .skills {
+    flex-direction: column;
+    .item {
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+}

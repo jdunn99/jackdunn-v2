@@ -1,6 +1,6 @@
 import { component$, Slot, useStylesScoped$ } from "@builder.io/qwik";
 import { Footer } from "../components/footer";
-import { Navbar } from "../components//navbar/navbar";
+import { Navbar, NavSmall } from "../components//navbar/navbar";
 
 export default component$(() => {
   useStylesScoped$(`
@@ -18,6 +18,7 @@ export default component$(() => {
   return (
     <>
       <div class="glow" />
+      <NavSmall />
       <div class="layout">
         <div class="content">
           <Navbar />
