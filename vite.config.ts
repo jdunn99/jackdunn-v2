@@ -16,6 +16,7 @@ export default defineConfig(async () => {
       rollupOptions: {
         external(source, _importer, _isResolved): boolean | void {
           if (['fs/promises', 'path'].indexOf(source) != -1) return true
+          if (['fs', 'path'].indexOf(source) != -1) return true
         },
       }
     }
