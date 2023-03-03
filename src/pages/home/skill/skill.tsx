@@ -1,7 +1,5 @@
 import {
   component$,
-  useBrowserVisibleTask$,
-  useSignal,
   useStyles$,
 } from "@builder.io/qwik";
 import { Animated } from "~/components/animated";
