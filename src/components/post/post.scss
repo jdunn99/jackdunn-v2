@@ -49,7 +49,7 @@
 
 .post-grid {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: 2rem;
 
@@ -70,7 +70,7 @@
 .card {
   flex-direction: column;
   img {
-      border-radius: 1rem 1rem 0 0;
+    border-radius: 1rem 1rem 0 0;
     height: 216px;
     flex: 0 0 auto;
     overflow: hidden;
@@ -85,7 +85,7 @@
   }
 
   .post-grid {
-    grid-template-columns: repeat(2, 1fr)
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .featured {
@@ -100,5 +100,11 @@
       flex: 0 0 auto;
       overflow: hidden;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .post-grid {
+    grid-template-columns: 1fr;
   }
 }

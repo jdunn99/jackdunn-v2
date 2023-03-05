@@ -43,7 +43,7 @@ export const NavSmall = component$(() => {
               <a href="/" class="logo">
                 Jack Dunn
               </a>
-              <NavItem href="/contact">Contact</NavItem>
+              <NavItem href="mailto:jackmdunn34@gmail.com">Contact</NavItem>
               <NavItem href="/projects">Projects</NavItem>
               <NavItem href="/posts">Blog</NavItem>
               <NavItem href="/resume.pdf">Resume</NavItem>
@@ -76,9 +76,9 @@ export const Navbar = component$(() => {
         </a>
 
         <div class="links-large">
-          <NavItem href="/contact">Contact</NavItem>
+          <NavItem href="mailto:jackmdunn34@gmail.com">Contact</NavItem>
           <NavItem href="/projects">Projects</NavItem>
-          <NavItem href="/posts">Blog</NavItem>
+          <NavItem href="/posts">Posts</NavItem>
           <NavItem href="/resume.pdf">Resume</NavItem>
         </div>
       </nav>

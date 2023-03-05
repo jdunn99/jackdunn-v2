@@ -12,14 +12,14 @@ export const Footer = component$(() => {
           <Link href="https://github.com/jdunn99">
             <GithubIcon />
           </Link>
-          <Link href="https://github.com/jdunn99">
+          <Link href="https://www.linkedin.com/in/jack-dunn-7548a920a/">
             <LinkedinIcon />
           </Link>
         </Flex>
         <Flex align="center" direction="row" gap="1rem">
-          <NavItem href="/contact">Contact</NavItem>
+          <NavItem href="mailto:jackmdunn34@gmail.com">Contact</NavItem>
           <NavItem href="/projects">Projects</NavItem>
-          <NavItem href="/blog">Blog</NavItem>
+          <NavItem href="/blog">Posts</NavItem>
           <NavItem href="/resume">Resume</NavItem>
         </Flex>
       </Flex>

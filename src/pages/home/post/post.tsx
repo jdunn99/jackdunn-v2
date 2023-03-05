@@ -32,7 +32,7 @@ export const HomePosts = component$(() => {
           <Animated time="1s">
             <PostItem post={recentPost} featured />
           </Animated>
-          <HomeLink href="/blog">View all my posts</HomeLink>
+          <HomeLink href="/posts">View all my posts</HomeLink>
         </div>
       </section>
     </Animated>
