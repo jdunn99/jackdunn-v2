@@ -1,6 +1,9 @@
 import { component$ } from "@builder.io/qwik";
+import { useContent } from "@builder.io/qwik-city";
 import { MarkdownItems } from "~/components/markdown/markdown";
 
 export default component$(() => {
-  return <MarkdownItems heading="Posts" />;
+  const { menu } = useContent();
+
+  return <MarkdownItems menu={menu} />;
 });
