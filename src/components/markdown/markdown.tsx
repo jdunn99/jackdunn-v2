@@ -4,6 +4,7 @@ import { normalizeMenu } from "~/utils/markdown";
 import { Animated } from "../animated";
 import { Heading } from "../fonts/fonts";
 import { PostItem } from "../post/post";
+import styles from './markdown.scss?inline';
 
 type MDMetadata = {
   title: string;
@@ -17,21 +18,7 @@ interface MarkdownTitleProps {
 }
 
 export const MarkdownTitle = component$(({ metadata }: MarkdownTitleProps) => {
-  useStylesScoped$(`
-    .markdown-title {
-      width: 100%;
-      margin: 4rem 0;
-    }
-
-    .markdown-title-heading {
-     display: flex;
-     align-items: center;
-    }
-    
-    .markdown-title-heading h1 {
-      flex: 1;
-    }
-  `);
+  useStylesScoped$(styles);
 
   return (
     <div class="markdown-title">

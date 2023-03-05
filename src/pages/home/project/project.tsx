@@ -60,8 +60,8 @@ const ProjectImage = component$(({ image }: ImageProps) => {
       {image.large.children ? (
         <div>
           {image.large.children.map((image: string, index) => (
-            <Animated time={`${index + 0.5}s`}>
-              <img src={image} key={image} />
+            <Animated time={`${index + 0.5}s`} key={image}>
+              <img src={image}  />
             </Animated>
           ))}
         </div>
