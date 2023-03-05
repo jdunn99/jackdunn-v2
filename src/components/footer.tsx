@@ -19,7 +19,7 @@ export const Footer = component$(() => {
         <Flex align="center" direction="row" gap="1rem">
           <NavItem href="mailto:jackmdunn34@gmail.com">Contact</NavItem>
           <NavItem href="/projects">Projects</NavItem>
-          <NavItem href="/blog">Posts</NavItem>
+          <NavItem href="/posts">Posts</NavItem>
           <NavItem href="/resume">Resume</NavItem>
         </Flex>
       </Flex>
