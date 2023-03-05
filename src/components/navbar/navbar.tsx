@@ -45,7 +45,7 @@ export const NavSmall = component$(() => {
               </a>
               <NavItem href="mailto:jackmdunn34@gmail.com">Contact</NavItem>
               <NavItem href="/projects">Projects</NavItem>
-              <NavItem href="/posts">Blog</NavItem>
+              <NavItem href="/posts">Posts</NavItem>
               <NavItem href="/resume.pdf">Resume</NavItem>
             </div>
           </div>

@@ -8,12 +8,12 @@
 ## [IssueTracker](/projects/issuetracker)
 
 - ""
-- Manage projects & issues.
+- Manage projects and issues.
 
 ## [Slotfocus](/projects/slotfocus)
 
 - ""
-- SaaS powered by React & Tableau.
+- SaaS powered by React and Tableau.
 
 ## [Trials Tracker](/projects/trials-tracker)
 
