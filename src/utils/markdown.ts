@@ -1,5 +1,4 @@
 import { type ContentMenu, z } from "@builder.io/qwik-city";
-import querystring from "querystring";
 
 const menuItemSchema: any = z.object({
   text: z.string(),
@@ -49,7 +48,7 @@ function _normalizeMenu(
       const [published, description] = items.map(
         (subItem: { text: string }) => subItem.text
       );
-      normalizedItem.published = querystring.unescape(
+      normalizedItem.published = decodeHTMLString(
         published.replace(/&quot;/g, "") || ""
       );
       normalizedItem.description = decodeHTMLString(description);
